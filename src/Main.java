@@ -12,8 +12,8 @@ public class Main {
         int i = 0;
         while (i < content.length()) {
             // kiểm tra kí tự hiện tại
-            char operatorsCheck = content.charAt(i); //Operators token
-            switch (operatorsCheck) {
+            char c = content.charAt(i); //Operators token
+            switch (c) {
                 case '+' : System.out.println("Plus"); i++; continue;
                 case '-' : System.out.println("Minus"); i++; continue;
                 case '*' : System.out.println("Multiply"); i++; continue;
@@ -21,6 +21,9 @@ public class Main {
                 case '=' : System.out.println("Assign"); i++; continue;
                 case '(' : System.out.println("LParen"); i++; continue;
                 case ')' : System.out.println("RParen"); i++; continue;
+                case ';' : System.out.println("Semicolon"); i++; continue;
+                case '{' : System.out.println("LBrace"); i++; continue;
+                case '}' : System.out.println("RBrace"); i++; continue;
             }
             if (Character.isDigit(content.charAt(i))) { //Number token
                 String number = "";
@@ -35,6 +38,11 @@ public class Main {
                 while (i < content.length() && Character.isLetterOrDigit(content.charAt(i))) {
                     identifier += content.charAt(i);
                     i++;
+                }
+                switch (identifier) {
+                    case "print" : System.out.println("PRINT"); continue;
+                    case "if" : System.out.println("IF"); continue;
+                    case "while" : System.out.println("WHILE"); continue;
                 }
                 System.out.println("Identifier: " + identifier);
             }
