@@ -2,6 +2,7 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -11,9 +12,12 @@ public class Main {
         String content = Files.readString(path);
         ArrayList<Token> tokens = new Lexer(content).tokenize();
 
-        for (int i=0; i<tokens.size(); i++) {
-            Token token = tokens.get(i);
-            System.out.println(token.getType() + ": " + token.getValue());
-        }
+        Parser parser = new Parser(tokens); //Initialize Parser
+        ArrayList<Stmt> stmt = parser.parseProgram(); //To get ArrayList<Stmt>
+
+        HashMap<String, Integer> variables = new HashMap<>();
+        Evaluator evaluator = new Evaluator(variables);
+        evaluator.executeProgram(stmt);
+        System.out.println(variables);
     }
 }
