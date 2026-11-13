@@ -1,4 +1,4 @@
-# JAVA Mini Compiler
+# Mini Compiler
 A mini programming language compiler built from scratch in Java.
 Featuring a handwritten lexer, parser, bytecode generator, and virtual machine.
 
