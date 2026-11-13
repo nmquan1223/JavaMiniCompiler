@@ -15,9 +15,15 @@ public class Main {
         Parser parser = new Parser(tokens); //Initialize Parser
         ArrayList<Stmt> stmt = parser.parseProgram(); //To get ArrayList<Stmt>
 
-        HashMap<String, Integer> variables = new HashMap<>();
-        Evaluator evaluator = new Evaluator(variables);
-        evaluator.executeProgram(stmt);
-        System.out.println(variables);
+        BytecodeGenerator statement = new BytecodeGenerator();
+        statement.generateProgram(stmt);
+        ArrayList<Instruction> byteCode = statement.getInstructions();
+
+        for (int i=0; i<byteCode.size(); i++) {
+            Instruction instruction = byteCode.get(i);
+            OpCode opCode = instruction.getOpCode();
+            Object operand = instruction.getOperand();
+            System.out.println(opCode + " " + operand);
+        }
     }
 }
