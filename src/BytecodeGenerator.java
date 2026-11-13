@@ -86,5 +86,28 @@ public class BytecodeGenerator {
             generateStatement(statement.get(i));
         }
         emit(OpCode.HALT, null);
+        validateBytecode();
+    }
+    public void validateBytecode() {
+        if (instructions.isEmpty()) {
+            throw new IllegalStateException("Empty Bytecode");
+        }
+        for (int i=0; i<instructions.size(); i++) {
+            OpCode opCode = (instructions.get(i)).getOpCode();
+            if (opCode == OpCode.JUMP || opCode ==OpCode.JUMP_IF_FALSE ) {
+                Object operand = instructions.get(i).getOperand();
+                if (!(operand instanceof Integer)) {
+                    throw new IllegalStateException("Invalid jump target");
+                }
+                int target = (Integer) operand;
+                if (target<0 || target>= instructions.size()) {
+                    throw new IllegalStateException("Jump target out of bounds");
+                }
+            }
+        }
+        Instruction last = instructions.get(instructions.size()-1);
+        if (last.getOpCode() != OpCode.HALT) {
+            throw new IllegalStateException("Invalid HALT");
+        }
     }
 }
