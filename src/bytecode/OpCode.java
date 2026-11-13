@@ -1,3 +1,5 @@
+package bytecode;
+
 public enum OpCode {
     PUSH,
     LOAD,

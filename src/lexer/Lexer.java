@@ -1,3 +1,5 @@
+package lexer;
+
 import java.util.ArrayList;
 
 public class Lexer {
@@ -7,7 +9,7 @@ public class Lexer {
         this.content = content;
     }
 
-    //Token recognizer
+    //lexer.Token recognizer
     public ArrayList<Token> tokenize() {
         int i = 0;
         ArrayList<Token> tokens = new ArrayList<>();

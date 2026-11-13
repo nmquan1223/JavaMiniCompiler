@@ -1,3 +1,7 @@
+package bytecode;
+
+import ast.*;
+
 import java.util.ArrayList;
 
 public class BytecodeGenerator {

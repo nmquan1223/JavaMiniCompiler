@@ -1,3 +1,5 @@
+package ast;
+
 public class BinaryOpNode implements Expr {
     private Expr left;
     private Expr right;

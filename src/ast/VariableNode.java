@@ -1,3 +1,5 @@
+package ast;
+
 public class VariableNode implements Expr {
     private String name;
 

@@ -1,3 +1,5 @@
+package ast;
+
 public class PrintNode implements Stmt {
     private Expr expression;
 

@@ -1,3 +1,5 @@
+package bytecode;
+
 public class Instruction {
     private OpCode opCode;
     private Object operand;

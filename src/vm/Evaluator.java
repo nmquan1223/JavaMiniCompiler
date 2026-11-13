@@ -1,3 +1,7 @@
+package vm;
+
+import ast.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,11 +13,11 @@ public class Evaluator {
     }
 
     public int evaluate(Expr expr) {
-        if (expr instanceof NumberNode) { //Handle NumberNode
+        if (expr instanceof NumberNode) { //Handle ast.NumberNode
             NumberNode numberNode = (NumberNode) expr;
             return numberNode.getValue();
         }
-        else if (expr instanceof BinaryOpNode) { //Handle BinaryOpNode
+        else if (expr instanceof BinaryOpNode) { //Handle ast.BinaryOpNode
             BinaryOpNode binaryOpNode = (BinaryOpNode) expr;
             int left = evaluate(binaryOpNode.getLeft());
             int right = evaluate(binaryOpNode.getRight());
@@ -31,7 +35,7 @@ public class Evaluator {
                 default: throw new IllegalArgumentException("Unknown operator: " + operator);
             }
         }
-        else if (expr instanceof VariableNode) { //Handle VariableNode
+        else if (expr instanceof VariableNode) { //Handle ast.VariableNode
             VariableNode variableNode = (VariableNode) expr;
             String name = variableNode.getName();
             if (variables.containsKey(name)) {

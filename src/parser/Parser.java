@@ -1,3 +1,9 @@
+package parser;
+
+import ast.*;
+import lexer.Token;
+import lexer.TokenType;
+
 import java.util.ArrayList;
 
 public class Parser implements Stmt {
@@ -18,7 +24,7 @@ public class Parser implements Stmt {
         }
         return token;
     }
-    public boolean match(TokenType expected) { //Check if getting right TokenType
+    public boolean match(TokenType expected) { //Check if getting right lexer.TokenType
         if (peek().getType() != expected) {
             return false;
         }
@@ -84,13 +90,13 @@ public class Parser implements Stmt {
         consume(TokenType.SEMICOLON);
         return new AssignmentNode(identifier, right);
     }
-    private Stmt parsePrint() { //Handle PRINT
+    public Stmt parsePrint() { //Handle PRINT
         consume(TokenType.PRINT);
         Expr printNode = parseTerm();
         consume(TokenType.SEMICOLON);
         return new PrintNode(printNode);
     }
-    private Stmt parseIf() { //Handle IF
+    public Stmt parseIf() { //Handle IF
         consume(TokenType.IF);
         consume(TokenType.LPAREN);
         Expr condition = parseTerm();
@@ -111,7 +117,7 @@ public class Parser implements Stmt {
         consume(TokenType.RBRACE);
         return new IfNode(condition, body);
     }
-    private Stmt parseWhile() { //Handle WHILE
+    public Stmt parseWhile() { //Handle WHILE
         consume(TokenType.WHILE);
         consume(TokenType.LPAREN);
         Expr condition = parseTerm();

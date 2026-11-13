@@ -1,3 +1,11 @@
+import ast.Stmt;
+import bytecode.BytecodeGenerator;
+import bytecode.Instruction;
+import lexer.Lexer;
+import lexer.Token;
+import parser.Parser;
+import vm.VirtualMachine;
+
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.io.IOException;

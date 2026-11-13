@@ -1,3 +1,8 @@
+package vm;
+
+import bytecode.Instruction;
+import bytecode.OpCode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;

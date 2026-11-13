@@ -1,3 +1,5 @@
+package ast;
+
 public class AssignmentNode implements Stmt {
     private String name;
     private Expr value;
