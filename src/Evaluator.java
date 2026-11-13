@@ -54,6 +54,20 @@ public class Evaluator {
             int value = evaluate(right);
             variables.put(name, value);
         }
+        else if (stmt instanceof PrintNode) {
+            PrintNode printNode = (PrintNode) stmt;
+            Expr expression = printNode.getExpression();
+            int value = evaluate(expression);
+            System.out.println(value);
+        }
+        else if (stmt instanceof IfNode) {
+            IfNode ifNode = (IfNode) stmt;
+            Expr condition = ifNode.getCondition();
+            int value = evaluate(condition);
+            if (value != 0) {
+                executeProgram(ifNode.getBody());
+            }
+        }
         else {
             throw new IllegalArgumentException();
         }

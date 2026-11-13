@@ -84,10 +84,48 @@ public class Parser implements Stmt {
         consume(TokenType.SEMICOLON);
         return new AssignmentNode(identifier, right);
     }
+    private Stmt parsePrint() { //Handle PRINT
+        consume(TokenType.PRINT);
+        Expr printNode = parseTerm();
+        consume(TokenType.SEMICOLON);
+        return new PrintNode(printNode);
+    }
+    private Stmt parseIf() { //Handle IF
+        consume(TokenType.IF);
+        consume(TokenType.LPAREN);
+        Expr condition = parseTerm();
+        consume(TokenType.RPAREN);
+        consume(TokenType.LBRACE);
+        ArrayList<Stmt> body = new ArrayList<>();
+        while (peek().getType() != TokenType.RBRACE) {
+            if (peek().getType() == TokenType.IDENTIFIER) {
+                body.add(parseAssignment());
+            }
+            else if (peek().getType() == TokenType.PRINT) {
+                body.add(parsePrint());
+            }
+            else {
+                throw new IllegalArgumentException();
+            }
+        }
+        consume(TokenType.RBRACE);
+        return new IfNode(condition, body);
+    }
     public ArrayList<Stmt> parseProgram() { //Handle multiple ASSIGNMENT
         ArrayList<Stmt> stmt = new ArrayList<Stmt>();
         while (peek().getType() != TokenType.EOF) {
-            stmt.add(parseAssignment());
+            if (peek().getType() == TokenType.IDENTIFIER) {
+                stmt.add(parseAssignment());
+            }
+            else if (peek().getType() == TokenType.PRINT) {
+                stmt.add(parsePrint());
+            }
+            else if (peek().getType() == TokenType.IF) {
+                stmt.add(parseIf());
+            }
+            else {
+                throw new IllegalArgumentException();
+            }
         }
         return stmt;
     }
