@@ -48,7 +48,7 @@ public class VirtualMachine {
                 }
                 String name = (String) operand;
                 if (!(variables.containsKey(name))) {
-                    throw new IllegalStateException(name);
+                    throw new IllegalStateException(name + " has not been defined");
                 }
                 int value = variables.get(name);
                 stack.push(value);
@@ -84,7 +84,7 @@ public class VirtualMachine {
                 int right = stack.pop();
                 int left = stack.pop();
                 if (right == 0) {
-                    throw new IllegalStateException();
+                    throw new ArithmeticException("division by zero");
                 }
                 stack.push(left/right);
             }

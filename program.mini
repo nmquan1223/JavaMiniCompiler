@@ -1,11 +1,11 @@
-x = 5;
-y = (x + 3) * 2;
-print y;
-
-if (y) {
-    print x + 1;
-}
-
+x = 3;
 while (x) {
+    print x;
     x = x - 1;
 }
+
+if (x) {
+    print 999;
+}
+
+print 42;
