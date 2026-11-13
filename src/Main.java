@@ -2,7 +2,6 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -12,10 +11,10 @@ public class Main {
         ArrayList<Token> tokens = new Lexer(content).tokenize();
 
         Parser parser = new Parser(tokens);
-        ArrayList<Stmt> stmt = parser.parseProgram();
+        ArrayList<Stmt> statements = parser.parseProgram();
 
         BytecodeGenerator generator = new BytecodeGenerator();
-        generator.generateProgram(stmt);
+        generator.generateProgram(statements);
         ArrayList<Instruction> byteCode = generator.getInstructions();
 
         VirtualMachine virtualMachine = new VirtualMachine(byteCode);
