@@ -68,6 +68,13 @@ public class Evaluator {
                 executeProgram(ifNode.getBody());
             }
         }
+        else if (stmt instanceof WhileNode) {
+            WhileNode whileNode = (WhileNode) stmt;
+            Expr condition = whileNode.getCondition();
+            while (evaluate(condition) != 0) {
+                executeProgram(whileNode.getBody());
+            }
+        }
         else {
             throw new IllegalArgumentException();
         }

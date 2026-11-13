@@ -111,6 +111,27 @@ public class Parser implements Stmt {
         consume(TokenType.RBRACE);
         return new IfNode(condition, body);
     }
+    private Stmt parseWhile() { //Handle WHILE
+        consume(TokenType.WHILE);
+        consume(TokenType.LPAREN);
+        Expr condition = parseTerm();
+        consume(TokenType.RPAREN);
+        consume(TokenType.LBRACE);
+        ArrayList<Stmt> body = new ArrayList<>();
+        while (peek().getType() != TokenType.RBRACE) {
+            if (peek().getType() == TokenType.IDENTIFIER) {
+                body.add(parseAssignment());
+            }
+            else if (peek().getType() == TokenType.PRINT) {
+                body.add(parsePrint());
+            }
+            else {
+                throw new IllegalArgumentException();
+            }
+        }
+        consume(TokenType.RBRACE);
+        return new WhileNode(condition, body);
+    }
     public ArrayList<Stmt> parseProgram() { //Handle multiple ASSIGNMENT
         ArrayList<Stmt> stmt = new ArrayList<Stmt>();
         while (peek().getType() != TokenType.EOF) {
@@ -122,6 +143,9 @@ public class Parser implements Stmt {
             }
             else if (peek().getType() == TokenType.IF) {
                 stmt.add(parseIf());
+            }
+            else if (peek().getType() == TokenType.WHILE) {
+                stmt.add(parseWhile());
             }
             else {
                 throw new IllegalArgumentException();
